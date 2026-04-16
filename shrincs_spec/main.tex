@@ -60,11 +60,11 @@
 \maketitle
 
 \begin{abstract}
-  This document specifies \textbf{SHRINCS} (Shrunken SHPINCS), a post-quantum signature scheme optimized for Bitcoin and Liquid. SHRINCS combines efficient stateful hash-based signatures (unbalanced XMSS with WOTS+C) for normal operation with a stateless fallback (an SPHINCS+ variant) for scenarios where state management is corrupted or unavailable. This specification provides with two parameter sets optimized for different deployment scenarios: (1) SHRINCS-B (Bitcoin-optimized) minimizes signature size for byte-based fee systems (\textbf{324}-byte signature with 2043 hashes for verification for the first use, growing by 16 bytes and one hash per subsequent signature(except that the last two stateful signatures)); (2) SHRINCS-L (Liquid-optimized) reduces verification cost for computation-based fee systems (only \textbf{55} hash operations with 1092-byte signature for the first use). Both variants support "stateless-only after recovery" mode to preserve funds while accepting larger and more expensive from the verification perspective signatures. 
+  This document specifies \textbf{SHRINCS} (Shrunken SHPINCS), a post-quantum signature scheme optimized for Bitcoin and Liquid. SHRINCS combines efficient stateful hash-based signatures (unbalanced XMSS with WOTS+C) for normal operation with a stateless fallback (an SPHINCS+ variant) for scenarios where state management is corrupted or unavailable. This specification provides with two parameter sets optimized for different deployment scenarios: (1) SHRINCS-B (Bitcoin-optimized) minimizes signature size for byte-based fee systems (\textbf{324}-byte signature with 2043 hashes for verification for the first use, growing by 16 bytes and one hash per subsequent signature); (2) SHRINCS-L (Liquid-optimized) reduces verification cost for computation-based fee systems (only \textbf{55} hash operations with 1092-byte signature for the first use). Both variants support "stateless-only after recovery" mode to preserve funds while accepting larger and more expensive from the verification perspective signatures. 
 \end{abstract}
 
-\paragraph{SHRINCS Team and Contributors:}
-\textit{Mikhail Kudinov, Dmitrii Kurbatov, Oleksandr Kurbatov, Jonas Nick}
+\textbf{SHRINCS Team and Contributors:}\footnote{The order is lexicographic}
+\textit{Mikhail Kudinov, Dmitrii Kurbatov, Oleksandr Kurbatov, Viktor Mashtaliar, Jonas Nick}
 
 \tableofcontents
 
