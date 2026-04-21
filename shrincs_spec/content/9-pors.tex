@@ -63,11 +63,12 @@ algorithm. We use rejection sampling over SHA256 XOF output.
 
     1. b       ← roundup(log2(t))         // bits per candidate
     2. c       ← floor(256 / b)        // number of candidates per 256-bit block
-    3. min_blk ← roundup(roundup(2^b * k / t)/c) // expected number of XOF blocks
-    4. indices ← []
-    5. xof_out ← ""
-    6. setTypeAndClear(ADRS, PORS_XOF)
-    7. for blk from 0 to 2^32 - 1:
+    3. total_bits ← (roundup(2^b * k / t) + margin) * b + offset + hsl // XOF output length
+    4. min_blk ← roundup(total_bits/256) // expected number of XOF blocks
+    5. indices ← []
+    6. xof_out ← ""
+    7. setTypeAndClear(ADRS, PORS_XOF)
+    8. for blk from 0 to 2^32 - 1:
         a. block ← H_xof_pors(ADRS, PKseed, digest, blk)
         b. xof_out ← xof_out || block
         c. for i from 0 to c - 1:
@@ -78,10 +79,10 @@ algorithm. We use rejection sampling over SHA256 XOF output.
                 indices ← indices || [candidate]
         d. if |indices| == k and blk = min_blk - 1:
             return (indices, xof_out[0:total_bits])
-    8. abort with error
+    9. abort with error
 \end{verbatim}
 
-where \texttt{total\_bits = (roundup(2\string^b * k / t) + margin) * b + offset + hsl} is the length of the XOF output (see Section~5.4.2). 
+The length of the XOF output is \texttt{total\_bits} (see Section~5.4.2). 
 In our case, for chosen parameters of SHRINCS-B and SHRINCS-L, and \texttt{margin = 7}, \texttt{offset = 16}, we get the follwing length: \texttt{total\_bits = (roundup(2\string^24 * 6 / 9245141) + 7) * 24 + 16 + 24 = 472} bits or 59 bytes.
 For SHRINCS-B32 parameters we set \texttt{margin = 10}, \texttt{offset = 16}, and in the result is: \texttt{total\_bits = (roundup(2\string^17 * 11 / 109571) + 10) * 17 + 16 + 32 = 456} bits or 57 bytes.
 

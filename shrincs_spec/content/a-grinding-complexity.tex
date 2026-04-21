@@ -38,9 +38,10 @@ If $k \ll t$, then we can aproximate the expression (6) as:
 The expected number of hashes during rejection smapling is the following: 
 
 \begin{align}
-    \mathbb{E}[\text{hashes}] = \left\lceil \frac{\mathbb{E}[\text{total candidates}]}{\left\lfloor \frac{256}{b}\right\rfloor}\right\rceil
+    \mathbb{E}[\text{hashes}] = \left\lceil \frac{\lceil \mathbb{E}[\text{total candidates}] \rceil + \text{margin}}{\left\lfloor \frac{256}{b}\right\rfloor}\right\rceil
 \end{align}
 
+where $\text{margin}$ is the additional candidates for extraction, in the case of insufficient number of selected "good" candidates.
 
 \subsubsection{WOTS+C Grinding}
 The grinding operation searches for a counter $\texttt{ctr}$ such that the sum of base-$w$ digits equals the target $S_{wn}$. Each digest attempt produces $l$ independent random digits, each uniformly distributed in $[0, w-1]$.
