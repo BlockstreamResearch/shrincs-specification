@@ -214,11 +214,12 @@ The \texttt{SHRINCS.VerifyStateless} function verifies a stateless signature. It
     11. A ← pors_octopus(indices)
     12. if |A| > m_max:
             return false
-    13. for i from R_SIZE + k*n + |A| to pors_sig_size:
-        a. pad_val ← pors_sig[offset : offset + n]
-        b. if pad_val != toByte(0, n):
+    13. if |A| == m_max:
+        a. for i from R_SIZE + k*n + |A| to pors_sig_size:
+            pad_val ← pors_sig[offset : offset + n]
+            if pad_val != toByte(0, n):
                return false
-        c. offset ← offset + n
+            offset ← offset + n
     14. (tree_idx, leaf_idx) ← parse_idx(xof_out)
     15. setLayerAddress(ADRS, 0)
     16. setTreeAddress(ADRS, tree_idx[0] * 2^h_prime + leaf_idx[0])

@@ -299,8 +299,9 @@ We pad additional n-byte 0 strings to make the length of the signature be fixed 
         b. sig  ← sig || sk_i
     5. auth_path ← pors_auth_path(SK.seed, PK.seed, ADRS, indices)
     6. sig ← sig || auth_path
-    7. for ctr from |auth_path| to m_max - 1:
-        a. sig ← sig || toByte(0, n)
+    7. if |auth_path| != m_max:
+        a. for ctr from |auth_path| to m_max - 1:
+            sig ← sig || toByte(0, n)
     8. return (sig, digest)
 \end{verbatim} 
 
